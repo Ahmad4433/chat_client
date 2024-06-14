@@ -21,7 +21,7 @@ const App = () => {
     if (socket) {
       dispatch(socketActions.setConnection(socket));
     }
-  });
+  },[]);
 
   return (
     <Routes>
