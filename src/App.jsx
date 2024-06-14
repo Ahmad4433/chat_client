@@ -11,17 +11,17 @@ import { socketActions } from "./store/socket-slice";
 const App = () => {
   const userId = useSelector((state) => state.chat.sender);
   const dispatch = useDispatch();
-  useEffect(() => {
-    const socket = io("https://chat-server-psi-lovat.vercel.app", {
-      query: {
-        userId,
-      },
-    });
+  // useEffect(() => {
+  //   const socket = io("https://chat-server-psi-lovat.vercel.app", {
+  //     query: {
+  //       userId,
+  //     },
+  //   });
 
-    if (socket) {
-      dispatch(socketActions.setConnection(socket));
-    }
-  },[]);
+  //   if (socket) {
+  //     dispatch(socketActions.setConnection(socket));
+  //   }
+  // },[]);
 
   return (
     <Routes>
