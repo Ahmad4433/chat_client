@@ -12,7 +12,7 @@ const App = () => {
   const userId = useSelector((state) => state.chat.sender);
   const dispatch = useDispatch();
   useEffect(() => {
-    const socket = io("http://localhost:4545", {
+    const socket = io("https://chat-server-psi-lovat.vercel.app", {
       query: {
         userId,
       },

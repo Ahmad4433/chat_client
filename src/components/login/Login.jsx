@@ -21,7 +21,7 @@ const Login = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     const data = {
-      url: "http://localhost:4545/user/login",
+      url: "https://chat-server-psi-lovat.vercel.app/user/login",
       method: "POST",
       body: { email: email, password: password },
     };

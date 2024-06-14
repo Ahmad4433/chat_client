@@ -14,7 +14,7 @@ const Chat = () => {
   const dispatch = useDispatch();
   const getUsers = async () => {
     const data = {
-      url: "http://localhost:4545/chat/user/list",
+      url: "https://chat-server-psi-lovat.vercel.app/user/list",
       method: "GET",
       token: token,
     };

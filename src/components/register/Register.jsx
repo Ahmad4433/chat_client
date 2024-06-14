@@ -25,7 +25,7 @@ const Register = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     const data = {
-      url: "http://localhost:4545/user/register",
+      url: "https://chat-server-psi-lovat.vercel.app/user/register",
       body: { name, email, password },
       method: "POST",
     };
