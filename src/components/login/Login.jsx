@@ -29,7 +29,7 @@ const Login = () => {
     if (result?.status) {
       dispatch(authActions.setAuth(true));
       localStorage.setItem("acc_token", result?.access_token);
-      navigate("/chat");
+      navigate("/");
     }
   };
 
@@ -58,7 +58,7 @@ const Login = () => {
 
         <div className="h_bar"></div>
         <Link to="/register" className="signup_link">
-          don't Have An Account?
+          Don't Have An Account?
         </Link>
       </form>
     </div>

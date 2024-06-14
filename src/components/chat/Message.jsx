@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./message.css";
 import { IoMdSend } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
 import { IoArrowBack } from "react-icons/io5";
 import { chatActions } from "../../store/chat-slice";
-import { messageActions } from "../../store/message-slice";
+
 const Message = () => {
   const [online, setOnline] = useState(null);
+  const chatRef = useRef();
   const socket = useSelector((state) => state.socket.socket);
   const user = useSelector((state) => state.chat.selectedUser);
   const sender = useSelector((state) => state.chat.sender);
@@ -16,7 +17,7 @@ const Message = () => {
   const dispatch = useDispatch();
   const removeUserHandler = () => {
     dispatch(chatActions.setSelected(null));
-    dispatch(messageActions.setConversion([]));
+    setChat([]);
   };
 
   const messageChange = (event) => {
@@ -24,6 +25,9 @@ const Message = () => {
   };
 
   const sendHandler = () => {
+    if (message.trim().length === 0 || !message) {
+      return;
+    }
     if (socket) {
       socket.emit("message", {
         senderId: sender,
@@ -31,12 +35,16 @@ const Message = () => {
         message: message,
       });
     }
-    setChat((pevChat) => [...pevChat, message]);
+
     setMessage("");
   };
 
   useEffect(() => {
     socket.on("online", (status) => {
+      setOnline(status);
+    });
+
+    socket.on("offline", (status) => {
       setOnline(status);
     });
 
@@ -54,7 +62,30 @@ const Message = () => {
         setChat(chat[0]?.message);
       }
     });
-  }, [user]);
+  }, []);
+
+  const enterHandler = (event) => {
+    if (event.key === "Enter") {
+      if (message.trim().length === 0 || !message) {
+        return;
+      }
+      if (socket) {
+        socket.emit("message", {
+          senderId: sender,
+          receiverId: user?._id,
+          message: message,
+        });
+      }
+
+      setMessage("");
+    }
+  };
+
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [chat]);
 
   return (
     <div className="message_main">
@@ -66,7 +97,7 @@ const Message = () => {
         </div>
       </div>
       <div className="messages">
-        <div className="messages_container">
+        <div ref={chatRef} className="messages_container">
           {chat?.length > 0 ? (
             chat.map((item, index) => {
               return (
@@ -86,11 +117,12 @@ const Message = () => {
 
       <div className="message_controll">
         <input
+          onKeyDown={enterHandler}
           onChange={messageChange}
           className="message_input"
           type="text"
           value={message}
-          placeholder="type here..."
+          placeholder="Type here..."
         />
         <IoMdSend onClick={sendHandler} className="message_send_icon" />
       </div>

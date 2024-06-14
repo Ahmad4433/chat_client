@@ -6,6 +6,7 @@ const chatSlice = createSlice({
     users: [],
     selectedUser: null,
     sender: null,
+    filteredUsers: [],
   },
   reducers: {
     setUsers(state, action) {
@@ -16,6 +17,9 @@ const chatSlice = createSlice({
     },
     setSender(state, action) {
       state.sender = action.payload;
+    },
+    setFilteredUsers(state, action) {
+      state.filteredUsers = action.payload;
     },
   },
 });

@@ -31,7 +31,7 @@ const Super = () => {
   }, []);
 
   if (loading) {
-    return <h2>Loading...</h2>;
+    return <div className="spinner" >Loading...</div>;
   }
 
   if (!isAuth) {

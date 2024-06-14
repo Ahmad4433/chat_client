@@ -29,7 +29,7 @@ const App = () => {
       <Route path="/register" element={<Register />} />
 
       <Route element={<Super />}>
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/" element={<Chat />} />
       </Route>
     </Routes>
   );

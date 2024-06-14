@@ -22,6 +22,7 @@ const Chat = () => {
     const result = await dispatch(httpAction(data));
     if (result?.status) {
       dispatch(chatActions.setUsers(result?.list));
+      dispatch(chatActions.setFilteredUsers(result?.list));
     }
   };
 
